@@ -4,7 +4,7 @@
  * https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/getting-started-guide
  */
 
-var https = require('https');
+var http = require('http');
 
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
@@ -17,7 +17,7 @@ exports.handler = function (event, context) {
          * prevent someone else from configuring a skill that sends requests to this function.
          */
         
-        if (event.session.application.applicationId !== "amzn1.echo-sdk-ams.app.dfd894f8-5839-4419-bb02-d123d070c05e") {
+        if (event.session.application.applicationId !== "amzn1.ask.skill.60daa250-cce8-4a82-8d07-3fa70a49c445") {
              context.fail("Invalid Application ID");
          }
         
@@ -113,12 +113,12 @@ function DoIntent(intent, session, callback)
 function SendRequest(sText,sessionAttributes,cardTitle,repromptText,shouldEndSession,session,callback,bRecurse)
 {
     // user will configure ip address and GUID
-    var sIPAddress = "YOUR IP";
+    var sIPAddress = "192.168.1.103";
     var sGUID = "B751501F-9DAD-4EAE-8680-5175EBCF8B83";
-    var sUser = "YOUR USERNAME";
-    var sPassword = "YOUR PASSWORD";
-    var sPort = "YOUR PORT";
-	var sURL = "https://" + sIPAddress + ":" + sPort + "/sys/%7B" + sGUID + "%7D?d??mbNaturalLanguage(" + sText + ")";
+    var sUser = "Plewacka";
+    var sPassword = "Xbox3606";
+    var sPort = "80";
+	var sURL = "http://" + sIPAddress + ":" + sPort + "/sys/%7B" + sGUID + "%7D?d??mbNaturalLanguage(" + sText + ")";
 
     // ensure text is valid for URL
 	sText = sText.replace(/[^a-zA-Z0-9_\s]/gi,"");
@@ -139,7 +139,7 @@ function SendRequest(sText,sessionAttributes,cardTitle,repromptText,shouldEndSes
 	};
 
     // Set up the request
-    var post_req = https.request(options, function(res) 
+    var post_req = http.request(options, function(res) 
 	{
         var speechOutput = "";
 		res.setEncoding('utf8');
